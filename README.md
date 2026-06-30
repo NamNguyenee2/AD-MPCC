@@ -38,29 +38,34 @@
 AD-MPCC combines two components operating at each time step:
 
 - **Online Parameter Estimation (Sec. III-A):** A prior-regularized moving-horizon estimator (MHE) with exponentially decaying weights rapidly updates Pacejka tire parameters to capture surface transitions in real time.
-- **Differentiable MPCC / PaIML (Sec. III-B–C):** Gradients of the MPCC solution w.r.t. objective weights are computed via the implicit function theorem (IFT). A Pacejka-informed machine learning model (PaIML) is trained offline to approximate these optimal weights from a 5-dimensional input, enabling real-time weight adaptation.
+- **Differentiable MPCC / PaIML (Sec. III-B–C):** Sensitivity of the MPCC solution w.r.t. objective weights are computed via the implicit function theorem (IFT). A Pacejka-informed machine learning model (PaIML) is trained offline to approximate these optimal weights from a 5-dimensional input, enabling real-time weight adaptation.
 
 ---
 
 ## Simulation Results
 
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=6dc-kbvjNFE">
-    <img src="https://img.shields.io/badge/-%20-FF0000?logo=youtube&logoColor=white&style=flat-square" height="32" alt="Watch on YouTube"/>
-  </a>
-</p>
+Watch on:
 
-<p align="center">
+<!-- <p align="center">
+  <a href="https://www.youtube.com/watch?v=6dc-kbvjNFE">
+    <img src="https://img.shields.io/badge/-%20-FF0000?logo=youtube&logoColor=white&style=flat-square" height="45" alt="Watch on YouTube"/>
+  </a>
+</p> -->
+
+<!-- <p align="center">
   <a href="https://www.youtube.com/watch?v=6dc-kbvjNFE">
     <img src="https://img.youtube.com/vi/6dc-kbvjNFE/maxresdefault.jpg" width="720" alt="AD-MPCC Demo"/>
   </a>
-</p>
+</p> -->
 
 
 ### Single-Surface Scenario
 
 All four controllers are evaluated on a uniform road surface with $μ_{max}$ = 1.2 for 10 laps (Sec. IV-B). Diff-MPCC and AD-MPCC achieve approximately 11 s faster lap times than the baseline MPCC by adapting the objective weights online, while AD-MPCC further maintains the smallest mean lateral offset (0.926 m), demonstrating a better safety–speed trade-off.
 
+<p align="center">
+  <img src="showcase/IROS2026-single.gif" width="720" alt="Single-Surface Scenario"/>
+</p>
 
 | Controller | Avg. Lap Time (s) | Avg. v_x (m/s) | Avg. Lateral Offset (m) | Avg. Comp. Time (ms) |
 |:---:|:---:|:---:|:---:|:---:|
@@ -72,6 +77,10 @@ All four controllers are evaluated on a uniform road surface with $μ_{max}$ = 1
 ### Multi-Surface Scenario
 
 The track surface varies from $μ_{max}$ = 0.7 to 1.2 across different sections (Sec. IV-C). Only AD-MPCC successfully completes the lap by jointly updating Pacejka parameters and MPCC weights in real time, while MPCC, A-MPCC, and Diff-MPCC all crash at the first slippery segment ($μ_{max}$ = 0.75) due to insufficient adaptation.
+
+<p align="center">
+  <img src="showcase/IROS2026-multiple.gif" width="720" alt="Multi-Surface Scenario"/>
+</p>
 
 | Controller | Avg. Lap Time (s) | Avg. v_x (m/s) | Avg. Lateral Offset (m) |
 |:---:|:---:|:---:|:---:|
@@ -113,7 +122,7 @@ ADMPCC/
 │   └── optimize_Pacejka.py  # MHE Pacejka parameter estimator
 ├── diff_data/               # Pre-generated PaIML training data (μ=0.5–1.2)
 ├── differientiable_MPCC_technique/   # Algorithm 1: IFT-based weight optimization (offline)
-│   ├── casadi_outer_sensitivity.py   # Core IFT gradient computation (KKT sensitivity)
+│   ├── casadi_outer_sensitivity.py   # Core IFT sensitivity computation (KKT sensitivity)
 │   ├── MPCCsolver.py                 # MPCC NLP solver used during differentiation
 │   ├── main_casadi_sensitivity.py    # Runner script — call with a friction value
 │   ├── plot_new_weights.py           # Visualization of optimized weights
@@ -188,7 +197,7 @@ After each run, a JSON log file is saved to the `results/` folder containing per
 
 #### 2. Regenerating PaIML Training Data (Optional)
 
-The pre-generated training data in `diff_data/` is sufficient to run all four controllers. If you wish to regenerate it from scratch, use the scripts in `differientiable_MPCC_technique/`, which implement Algorithm 1 (IFT-based gradient weight optimization, Sec. III-B of the paper).
+The pre-generated training data in `diff_data/` is sufficient to run all four controllers. If you wish to regenerate it from scratch, use the scripts in `differientiable_MPCC_technique/`, which implement Algorithm 1 (IFT-based sensitivity weight optimization, Sec. III-B of the paper).
 
 ```bash
 cd differientiable_MPCC_technique
