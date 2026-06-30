@@ -1,4 +1,4 @@
-<h1 align="center">AD-MPCC: Adaptive Differentiable Model Predictive Contouring Control<br>for Autonomous Racing</h1>
+<h1 align="center">AD-MPCC: Adaptive Differentiable Model Predictive Contouring Control for Autonomous Racing</h1>
 
 <p align="center">
   <a href="https://2026.ieee-iros.org/"><img src="https://img.shields.io/badge/IROS-2026-blue.svg" alt="IROS 2026"/></a>
@@ -43,8 +43,6 @@ AD-MPCC combines two components operating at each time step:
 ---
 
 ## Simulation Results
-
-Watch on:
 
 <!-- <p align="center">
   <a href="https://www.youtube.com/watch?v=6dc-kbvjNFE">
