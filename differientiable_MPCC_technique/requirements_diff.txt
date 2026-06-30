@@ -1,0 +1,11 @@
+casadi==3.7.0
+jax==0.9.1
+jaxlib==0.9.1
+flax==0.12.5
+optax==0.2.7
+numpy
+scipy
+pandas
+matplotlib
+numba
+PyYAML==6.0.3
