@@ -172,7 +172,7 @@ Run from the repository root:
 ```bash
 python main/MPCC.py       # Baseline MPCC
 python main/A_MPCC.py     # Adaptive MPCC  (online MHE)
-python main/Diff_MPCC.py  # Differentiable MPCC (PaIML weights)
+python main/Diff_MPCC.py  # Differentiable MPCC 
 python main/AD_MPCC.py    # Full AD-MPCC (MHE + PaIML)
 ```
 
@@ -185,7 +185,7 @@ cd differientiable_MPCC_technique
 pip install -r requirements_diff.txt
 ```
 
-### 4. Log Output
+### Log Output
 
 After each run, a JSON log file is saved to the `results/` folder containing per-step records of:
 
